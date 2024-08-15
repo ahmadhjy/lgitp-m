@@ -1,0 +1,89 @@
+/* TermsOfService.css */
+
+/* Container Styling */
+.terms-of-service-container {
+    padding: 40px 20px;
+    max-width: 900px;
+    margin: 40px auto;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    font-family: 'Roboto', sans-serif;
+    color: #333;
+}
+
+/* Heading Styling */
+.terms-of-service-container h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #017599;
+    text-align: center;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.terms-of-service-container h2 {
+    font-size: 1.8rem;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    color: #017599;
+    font-weight: 600;
+    border-bottom: 2px solid #017599;
+    padding-bottom: 5px;
+}
+
+/* Paragraph and List Styling */
+.terms-of-service-container p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    color: #555;
+}
+
+.terms-of-service-container ul {
+    list-style-type: disc;
+    padding-left: 20px;
+    margin-bottom: 20px;
+}
+
+.terms-of-service-container li {
+    margin-bottom: 10px;
+}
+
+/* Highlighted Text */
+.terms-of-service-container strong {
+    color: #017599;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .terms-of-service-container {
+        padding: 20px 15px;
+    }
+
+    .terms-of-service-container h1 {
+        font-size: 2rem;
+    }
+
+    .terms-of-service-container h2 {
+        font-size: 1.6rem;
+    }
+
+    .terms-of-service-container p, .terms-of-service-container ul {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .terms-of-service-container h1 {
+        font-size: 1.8rem;
+    }
+
+    .terms-of-service-container h2 {
+        font-size: 1.4rem;
+    }
+
+    .terms-of-service-container p, .terms-of-service-container ul {
+        font-size: 0.9rem;
+    }
+}

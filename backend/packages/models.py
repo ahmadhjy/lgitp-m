@@ -29,6 +29,21 @@ class Package(models.Model):
     min_age = models.IntegerField(blank=True, null=True)
     cancellation_policy = models.TextField(blank=True, null=True)
     additional_info = models.TextField(blank=True, null=True)
+    def create_package_days(self):
+        if not self.days_off:
+            self.days_off = ""
+        days_off = [day.strip().lower() for day in self.days_off.split(",")]
+        current_day = self.available_from
+        offers = self.offers.all()  # Use related name to access package offers
+        while current_day <= self.available_to:
+            if current_day.strftime("%A").lower() not in days_off:
+                for offer in offers:
+                    PackageDay.objects.create(
+                        day=current_day,
+                        package_offer=offer,
+                        stock=offer.stock,
+                    )
+            current_day += timedelta(days=1)
 
     def __str__(self):
         return self.title

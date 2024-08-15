@@ -2,7 +2,7 @@ from django.db import models
 from categories.models import Category
 from users.models import Supplier
 from location.models import Location
-
+from datetime import timedelta
 
 class Tour(models.Model):
     featured = models.BooleanField(default=False)
@@ -31,6 +31,22 @@ class Tour(models.Model):
     min_age = models.IntegerField(blank=True, null=True)
     cancellation_policy = models.TextField(blank=True, null=True)
     additional_info = models.TextField(blank=True, null=True)
+
+    def create_tour_days(self):
+        if not self.days_off:
+            self.days_off = ""
+        days_off = [day.strip().lower() for day in self.days_off.split(",")]
+        current_day = self.available_from
+        offers = self.tour_offer.all()  # Use related name to access tour offers
+        while current_day <= self.available_to:
+            if current_day.strftime("%A").lower() not in days_off:
+                for offer in offers:
+                    TourDay.objects.get_or_create(
+                        day=current_day,
+                        tour_offer=offer,
+                        defaults={"stock": offer.stock},
+                    )
+            current_day += timedelta(days=1)
 
     def __str__(self):
         return self.title

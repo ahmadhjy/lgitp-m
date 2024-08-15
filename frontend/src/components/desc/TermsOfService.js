@@ -1,8 +1,9 @@
 import React from 'react';
+import './TermsOfService.css';
 
 const TermsOfService = () => {
     return (
-        <div style={{ padding: '20px', maxWidth: '800px', margin: 'auto' }}>
+        <div className="terms-of-service-container">
             <h1>Terms of Service</h1>
             <p>
                 Welcome to our booking application for touristic activities and packages. By using our services, you agree to comply with and be bound by the following terms and conditions. Please read them carefully.

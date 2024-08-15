@@ -52,24 +52,10 @@ class PackageAdmin(admin.ModelAdmin):
         ItineraryInline,
     ]
 
-    def save_model(self, request, obj, form, change):
-        super().save_model(request, obj, form, change)
-        if not change:  # If the package is being created
-            if not obj.days_off:
-                obj.days_off = ""
-            days_off = [day.strip().lower() for day in obj.days_off.split(",")]
-            current_day = obj.available_from
-            offers = PackageOffer.objects.filter(package=obj)
-            while current_day <= obj.available_to:
-                if current_day.strftime("%A").lower() not in days_off:
-                    for offer in offers:
-                        PackageDay.objects.create(
-                            day=current_day,
-                            package_offer=offer,
-                            stock=offer.stock,
-                        )
-                current_day += timedelta(days=1)
-
+    def save_related(self, request, form, formsets, change):
+        super().save_related(request, form, formsets, change)
+        if not change:
+            form.instance.create_package_days()
 
 admin.site.register(Package, PackageAdmin)
 admin.site.register(PackageDay)

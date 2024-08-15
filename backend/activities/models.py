@@ -2,6 +2,7 @@ from django.db import models
 from users.models import Supplier
 from categories.models import Category
 from location.models import Location
+from datetime import datetime, timedelta
 
 
 class Activity(models.Model):
@@ -46,6 +47,31 @@ class Activity(models.Model):
 
     def __str__(self):
         return self.title
+    def create_periods(self):
+        offers = self.offers.all()  # Use the related name to get the offers
+        for offer in offers:
+            current_date = self.available_from
+            delta = timedelta(days=1)
+            period_duration = timedelta(minutes=self.period)
+
+            activity_start_time = self.start_time
+            activity_end_time = self.end_time
+
+            while current_date <= self.available_to:
+                period_start_time = datetime.combine(current_date, activity_start_time)
+                period_end_time = period_start_time + period_duration
+
+                while period_end_time.time() <= activity_end_time:
+                    Period.objects.create(
+                        day=current_date,
+                        time_from=period_start_time.time(),
+                        time_to=period_end_time.time(),
+                        stock=offer.stock,
+                        activity_offer=offer,
+                    )
+                    period_start_time = period_end_time
+                    period_end_time = period_start_time + period_duration
+                current_date += delta
 
 
 class ActivityOffer(models.Model):

@@ -1,32 +1,205 @@
-.about-us {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
+/* AboutUs.css */
 
-.about-us h2 {
-  text-align: center;
+/* General container styling */
+.about-us-container {
+  font-family: 'Arial', sans-serif;
   color: #333;
-  margin-bottom: 20px;
+  line-height: 1.6;
+  margin: 0 auto;
+  max-width: 1200px;
+  padding: 20px;
 }
 
-.about-us p {
-  line-height: 1.6;
+/* Hero section styling */
+.about-us-hero {
+  background: url('../../../public/beirut.jpg') no-repeat center center;
+  background-size: cover;
+  padding: 80px 20px;
+  text-align: center;
+  color: white;
+  border-radius: 12px;
+  margin-bottom: 40px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.about-us-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Dark overlay for better text contrast */
+}
+
+.about-us-hero h1 {
+  position: relative;
+  font-size: 3rem;
+  margin-bottom: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  z-index: 1;
+}
+
+.about-us-hero p {
+  position: relative;
+  font-size: 1.5rem;
+  z-index: 1;
+}
+
+/* Section styling */
+.about-us-content section {
+  margin-bottom: 40px;
+  padding: 20px;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.about-us-content h2 {
+  font-size: 2rem;
+  color: #017599;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+/* Services list styling */
+.services-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-around;
+}
+
+.service-item {
+  background-color: #f9f9f9;
+  border-radius: 12px;
+  padding: 20px;
+  width: 100%;
+  max-width: 350px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  text-align: center;
+}
+
+.service-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.service-icon {
+  font-size: 3rem;
+  color: #017599;
+  margin-bottom: 15px;
+}
+
+.service-item h3 {
+  font-size: 1.5rem;
+  color: #017599;
+  margin-bottom: 10px;
+}
+
+.service-item p {
+  font-size: 1.1rem;
   color: #555;
 }
 
-.contact-info {
-  margin-top: 30px;
+/* Values section styling */
+.values ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0 auto;
+  max-width: 800px;
 }
 
-.contact-info h3 {
-  color: #333;
+.values li {
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: flex-start;
+}
+
+.value-icon {
+  font-size: 1.5rem;
+  color: #017599;
+  margin-right: 10px;
+}
+
+.values li strong {
+  color: #017599;
+  margin-right: 10px;
+}
+
+/* Contact Info styling */
+.contact-info {
+  text-align: center;
+  background-color: #f9f9f9;
+  padding: 30px;
+  border-radius: 12px;
 }
 
 .contact-info p {
+  font-size: 1.2rem;
   color: #555;
-  line-height: 1.4;
+  margin: 10px 0;
+}
+
+.contact-info a {
+  color: #017599;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.contact-info a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive Design */
+
+@media (max-width: 768px) {
+  .about-us-hero h1 {
+      font-size: 2.5rem;
+  }
+
+  .about-us-hero p {
+      font-size: 1.2rem;
+  }
+
+  .services-list {
+      flex-direction: column;
+      align-items: center;
+  }
+
+  .service-item {
+      width: 100%;
+  }
+
+  .about-us-content h2 {
+      font-size: 1.8rem;
+  }
+
+  .values li {
+      font-size: 1.1rem;
+  }
+
+  .contact-info p {
+      font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-us-hero h1 {
+      font-size: 2rem;
+  }
+
+  .about-us-hero p {
+      font-size: 1rem;
+  }
+
+  .about-us-content h2 {
+      font-size: 1.5rem;
+  }
 }

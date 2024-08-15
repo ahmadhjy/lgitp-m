@@ -66,7 +66,7 @@ const MainPage = () => {
 
   return (
     <div className="main-page">
-      <div className="banner">
+      <div className="banner-main">
         <div className="banner-content">
           <div className="banner-text">Top Tips-Top Trips</div>
           <div className="banner-subtext">Welcome to LebAdvisor: Packages, Daily Tours & Activities</div>
