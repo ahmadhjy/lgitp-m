@@ -147,6 +147,56 @@ const TourDetails = () => {
                 />
                 <hr />
                 <ImageCatalog imageLinks={imageLinks} />
+                <div className="booking-container">
+                    <h2>Book This Tour</h2>
+                    <TextField
+                        select
+                        label="Select Offer"
+                        value={selectedOffer?.id || ''}
+                        onChange={handleOfferChange}
+                        fullWidth
+                    >
+                        <MenuItem value="">Select Offer</MenuItem>
+                        {tour.offers.map(offer => (
+                            <MenuItem key={offer.id} value={offer.id}>
+                                {offer.title} - ${offer.price}
+                            </MenuItem>
+                        ))}
+                    </TextField>
+                    {selectedOffer && (
+                        <TourDatePicker
+                            availableTourDays={availableDates.map(date => date.date)}
+                            onDateChange={handleDateChange}
+                        />
+                    )}
+                    {selectedTourDay && (
+                        <>
+                            <TextField
+                                type="number"
+                                label="Quantity"
+                                value={quantity}
+                                onChange={(e) => setQuantity(Math.min(Math.max(parseInt(e.target.value, 10), 1), selectedTourDay.stock))}
+                                InputProps={{ inputProps: { min: 1, max: selectedTourDay.stock } }}
+                                fullWidth
+                                margin="normal"
+                            />
+                            <p><strong>Total Price:</strong> ${totalPrice.toFixed(2)}</p>
+                            <Button
+                                onClick={handleBooking}
+                                variant="contained"
+                                sx={{
+                                    backgroundColor: "#1781a1",
+                                    color: "#fff",
+                                    "&:hover": {
+                                        backgroundColor: "#ff7a2d",
+                                    },
+                                }}
+                            >
+                                BOOK NOW
+                            </Button>
+                        </>
+                    )}
+                </div>
                 <div className="details-content">
                     <p className="description">
                         {tour.description}
@@ -242,55 +292,6 @@ const TourDetails = () => {
                             ))}
                         </div>
                     </div>
-                </div>
-                <div className="booking-container">
-                    <TextField
-                        select
-                        label="Select Offer"
-                        value={selectedOffer?.id || ''}
-                        onChange={handleOfferChange}
-                        fullWidth
-                    >
-                        <MenuItem value="">Select Offer</MenuItem>
-                        {tour.offers.map(offer => (
-                            <MenuItem key={offer.id} value={offer.id}>
-                                {offer.title} - ${offer.price}
-                            </MenuItem>
-                        ))}
-                    </TextField>
-                    {selectedOffer && (
-                        <TourDatePicker
-                            availableTourDays={availableDates.map(date => date.date)}
-                            onDateChange={handleDateChange}
-                        />
-                    )}
-                    {selectedTourDay && (
-                        <>
-                            <TextField
-                                type="number"
-                                label="Quantity"
-                                value={quantity}
-                                onChange={(e) => setQuantity(Math.min(Math.max(parseInt(e.target.value, 10), 1), selectedTourDay.stock))}
-                                InputProps={{ inputProps: { min: 1, max: selectedTourDay.stock } }}
-                                fullWidth
-                                margin="normal"
-                            />
-                            <p><strong>Total Price:</strong> ${totalPrice.toFixed(2)}</p>
-                            <Button
-                                onClick={handleBooking}
-                                variant="contained"
-                                sx={{
-                                    backgroundColor: "#1781a1",
-                                    color: "#fff",
-                                    "&:hover": {
-                                        backgroundColor: "#ff7a2d",
-                                    },
-                                }}
-                            >
-                                BOOK NOW
-                            </Button>
-                        </>
-                    )}
                 </div>
             </div>
         </div>
