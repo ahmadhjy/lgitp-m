@@ -115,7 +115,69 @@ const ActivityDetails = () => {
                     className="details-image"
                 />
                 <ImageCatalog imageLinks={imageLinks} />
-                <div className="details-content">
+                <div className="booking-container">
+                    <h2 className="booking-form-title">Book This Activity Now!</h2>
+                    <CustomDatePicker
+                        from={new Date().toISOString().split('T')[0]}
+                        to={activity.available_to}
+                        daysOff={activity.days_off}
+                        onDateChange={setSelectedDate}
+                    />
+                    {selectedDate && (
+                        <>
+                            <TextField
+                                select
+                                label="Select Offer"
+                                value={selectedOffer?.id || ''}
+                                onChange={handleOfferChange}
+                                fullWidth
+                            >
+                                <MenuItem value="">Select Offer</MenuItem>
+                                {offers.map(offer => (
+                                    <MenuItem key={offer.id} value={offer.id}>
+                                        {offer.title} - ${offer.price}
+                                    </MenuItem>
+                                ))}
+                            </TextField>
+                            {selectedOffer && (
+                                <PeriodsDropdown
+                                    selectedDate={selectedDate}
+                                    offerId={selectedOffer.id}
+                                    setSelectedPeriod={setSelectedPeriod}
+                                    selectedPeriod={selectedPeriod}
+                                />
+                            )}
+                        </>
+                    )}
+                    {selectedPeriod && (
+                        <>
+                            <TextField
+                                label="Quantity"
+                                type="number"
+                                InputProps={{ inputProps: { min: 1, max: selectedPeriod.stock } }}
+                                value={quantity}
+                                onChange={(e) => setQuantity(Math.max(1, Math.min(selectedPeriod.stock, Number(e.target.value))))}
+                                variant="outlined"
+                                margin="normal"
+                            />
+                            <p><strong>Total Price:</strong> ${(totalPrice).toFixed(2)}</p>
+                            <Button
+                                onClick={handleBooking}
+                                variant="contained"
+                                sx={{
+                                    backgroundColor: '#1781a1',
+                                    color: '#fff',
+                                    '&:hover': {
+                                        backgroundColor: '#ff7a2d',
+                                    },
+                                }}
+                            >
+                                BOOK NOW
+                            </Button>
+                        </>
+                    )}
+                </div>
+                <div className="details-content">    
                     <p className="description">
                         <FaExclamationCircle className="icon" /> {activity.description}
                     </p>
@@ -191,68 +253,6 @@ const ActivityDetails = () => {
                             ))}
                         </div>
                     </div>
-                </div>
-                <div className="booking-container">
-                    <h2 className="booking-form-title">Book This Activity Now!</h2>
-                    <CustomDatePicker
-                        from={new Date().toISOString().split('T')[0]}
-                        to={activity.available_to}
-                        daysOff={activity.days_off}
-                        onDateChange={setSelectedDate}
-                    />
-                    {selectedDate && (
-                        <>
-                            <TextField
-                                select
-                                label="Select Offer"
-                                value={selectedOffer?.id || ''}
-                                onChange={handleOfferChange}
-                                fullWidth
-                            >
-                                <MenuItem value="">Select Offer</MenuItem>
-                                {offers.map(offer => (
-                                    <MenuItem key={offer.id} value={offer.id}>
-                                        {offer.title} - ${offer.price}
-                                    </MenuItem>
-                                ))}
-                            </TextField>
-                            {selectedOffer && (
-                                <PeriodsDropdown
-                                    selectedDate={selectedDate}
-                                    offerId={selectedOffer.id}
-                                    setSelectedPeriod={setSelectedPeriod}
-                                    selectedPeriod={selectedPeriod}
-                                />
-                            )}
-                        </>
-                    )}
-                    {selectedPeriod && (
-                        <>
-                            <TextField
-                                label="Quantity"
-                                type="number"
-                                InputProps={{ inputProps: { min: 1, max: selectedPeriod.stock } }}
-                                value={quantity}
-                                onChange={(e) => setQuantity(Math.max(1, Math.min(selectedPeriod.stock, Number(e.target.value))))}
-                                variant="outlined"
-                                margin="normal"
-                            />
-                            <p><strong>Total Price:</strong> ${(totalPrice).toFixed(2)}</p>
-                            <Button
-                                onClick={handleBooking}
-                                variant="contained"
-                                sx={{
-                                    backgroundColor: '#1781a1',
-                                    color: '#fff',
-                                    '&:hover': {
-                                        backgroundColor: '#ff7a2d',
-                                    },
-                                }}
-                            >
-                                BOOK NOW
-                            </Button>
-                        </>
-                    )}
                 </div>
             </div>
         </div>
