@@ -1,0 +1,341 @@
+/* Background blur with gradient overlay */
+.background-blur {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  filter: blur(8px);
+  z-index: -1;
+}
+
+.gradient-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.3));
+}
+
+/* Container and layout */
+.details-box {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+.details-container {
+  position: relative;
+  padding: 20px;
+  max-width: 70%;
+  margin: 0 auto;
+  padding-bottom: 50px;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  font-family: 'Arial, sans-serif';
+  color: #333;
+  z-index: 1;
+}
+
+/* Header and title styling */
+.details-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.details-title {
+  font-size: 2.5rem;
+  color: #1781a1;
+  font-weight: 700;
+  text-align: center;
+  flex: 1;
+}
+
+.favorite-icon {
+  font-size: 2.5rem;
+  cursor: pointer;
+  color: #ccc;
+}
+
+.favorite-icon.favorite {
+  color: #ff4d4d;
+}
+
+/* Image styling */
+.details-image {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+/* Content styling */
+.details-content {
+  padding: 30px;
+  line-height: 1.8;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.details-content p {
+  margin: 10px 0;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+}
+
+.details-content p strong {
+  font-weight: 600;
+  margin-right: 10px;
+}
+
+.map-container{
+  display: block !important;
+}
+
+.description {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.icon {
+  color: #1781a1;
+  margin-right: 10px;
+}
+
+/* Date and location information */
+.date-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 0;
+  font-size: 18px;
+}
+
+.date-info strong {
+  font-weight: 600;
+  margin-right: 10px;
+}
+
+/* Included/Excluded items */
+.included-excluded-container {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0;
+}
+
+.included-excluded-card {
+  width: 48%;
+  padding: 20px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background: #f9f9f9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.included-excluded-card p {
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.included-excluded-card ul {
+  padding-left: 0;
+}
+
+.included-item, .excluded-item {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  padding: 5px 0;
+}
+
+.included-item .icon {
+  color: green;
+}
+
+.excluded-item .icon {
+  color: red;
+}
+
+/* Cancellation policy */
+.cancellation-policy {
+  color: red;
+  font-weight: 600;
+  white-space: normal !important; /* Allow text to wrap */
+  word-wrap: break-word !important; /* Ensure long words break to fit within the container */
+  overflow-wrap: break-word !important; /* Ensure long words break to fit within the container */
+}
+
+/* Itinerary section */
+.itinerary-container {
+  margin: 20px 0;
+}
+
+.itinerary-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+}
+
+.itinerary-step {
+  margin: 10px 0;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 10px;
+  background: #f9f9f9;
+  cursor: pointer;
+}
+
+.itinerary-step-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.itinerary-content {
+  display: none;
+  padding: 10px 0;
+}
+
+.itinerary-content.show {
+  display: block;
+}
+
+.itinerary-arrow {
+  transition: transform 0.3s ease;
+}
+
+.itinerary-step-title:hover .itinerary-arrow {
+  transform: rotate(180deg);
+}
+
+
+/* FAQ section */
+.faq-container {
+  margin: 20px 0;
+}
+
+.faq-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.faq-content {
+  display: none;
+  margin-top: 10px;
+}
+
+.faq-content.show {
+  display: block;
+}
+
+.faq-item {
+  margin: 10px 0;
+}
+
+.faq-arrow {
+  margin-left: 10px;
+}
+
+/* Booking section */
+.booking-container {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.booking-form-title {
+  color: #1781a1;
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+button.MuiButton-contained {
+  background-color: #1781a1;
+  color: #fff;
+}
+
+button.MuiButton-contained:hover {
+  background-color: #ff7a2d;
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+
+.favorite-icon{
+  font-size: 1.5rem;
+}
+
+.details-container {
+  padding: 15px;
+  margin: 0 0 !important;
+  max-width: 100%;
+}
+
+.details-title {
+  font-size: 1.8rem;
+}
+
+.details-content {
+  padding: 15px;
+  margin-top: 20px;
+}
+
+.date-info{
+  display: block;
+}
+
+.included-excluded-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.cancellation-policy{
+  font-size: 14px !important;
+  display: block !important;
+}
+
+.included-excluded-card {
+  width: 80%;
+}
+
+.details-content p {
+  font-size: 16px;
+}
+
+.details-title {
+  font-size: 1.8rem;
+}
+
+.booking-form-title {
+  font-size: 1.8rem;
+}
+
+/* Container and layout */
+.details-box {
+  padding-top: 0px;
+  padding-bottom: 0px;
+  margin:0;
+  padding: 0;
+}
+
+.details-container{
+  border-radius: 0px;
+}
+}

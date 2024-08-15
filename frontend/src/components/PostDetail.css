@@ -1,0 +1,58 @@
+/* PostDetail.css */
+
+/* Container styling */
+.post-detail-container {
+    padding: 20px 50px !important;
+    background-color: #f9f9f9;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    width: 80% !important;
+  }
+  
+  /* Title styling */
+  .post-detail-title {
+    font-size: 2.5rem  !important;
+    font-weight: 700 !important;
+    color: #1781a1;
+    margin-bottom: 30px !important;
+  }
+  
+  /* Featured image styling */
+  .post-detail-featured-image {
+    max-width: 100%;
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+  
+  /* Content styling */
+  .post-detail-content {
+    font-size: 1.125rem;
+    line-height: 1.6;
+    color: #444;
+  }
+  
+  /* Meta information */
+  .post-detail-meta {
+    margin-top: 20px;
+    color: #777;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .post-detail-title {
+      font-size: 2rem !important;
+    }
+  
+    .post-detail-content {
+      font-size: 1rem;
+    }
+
+    .post-detail-container {
+        padding: 20px 50px;
+        background-color: #f9f9f9;
+        margin-top: 0px;
+        margin-bottom: 0px;
+        width: 100% !important;
+      }
+  }
+  

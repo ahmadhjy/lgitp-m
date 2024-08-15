@@ -1,0 +1,99 @@
+/* General Styles */
+.navbar {
+    background: white;
+    padding: 20px;
+  }
+  
+  .lb-logo {
+    cursor: pointer;
+    flex-grow: 1;
+    height: 60px;
+  }
+  
+  .notification-button {
+    color: white;
+    background-color: #017599;
+    padding: 9px;
+    margin-right: 10px;
+  }
+  
+  .not-icon {
+    color: white;
+  }
+  
+  .read-all {
+    color: darkorange;
+    font-weight: bold;
+  }
+  
+  .user-icon {
+    background-color: #f58529;
+  }
+  
+  /* Menu Styles */
+  .nav-menu .MuiMenu-paper {
+    margin-top: 45px;
+    max-width: 90vw; /* Limit the width to avoid overflow */
+    left: auto !important; /* Override positioning to prevent overflow */
+    right: 10px !important;
+  }
+  
+  li.MuiMenuItem-root {
+    white-space: normal; /* Allow text to wrap */
+    word-wrap: break-word; /* Ensure long words break to fit within the container */
+    overflow-wrap: break-word; /* Ensure long words break to fit within the container */
+  }
+  
+  /* Responsive Styles */
+  @media screen and (max-width: 600px) {
+    .navbar {
+      padding: 10px;
+      padding-left:5px;
+    }
+  
+    .lb-logo {
+      width: 35vw;
+      height: auto;
+    }
+  
+    .notification-button {
+      padding: 6px;
+      margin-right: 5px;
+    }
+  
+    .not-icon {
+      font-size: 1rem;
+    }
+  
+    .user-icon {
+      width: 30px;
+      height: 30px;
+      font-size: 0.875rem;
+    }
+  
+    .MuiIconButton-root {
+      padding: 5px;
+    }
+  
+    .MuiTypography-h6 {
+      font-size: 1rem;
+    }
+  
+    .MuiBadge-badge {
+      font-size: 0.75rem;
+    }
+  
+    .nav-menu .MuiMenu-paper {
+      width: 100vw; /* Make sure the menu fits within the viewport width */
+      left: 0 !important; /* Ensure the menu aligns with the viewport */
+      right: 0 !important; /* Ensure the menu aligns with the viewport */
+      max-width: 100%; /* Prevent the menu from causing overflow */
+    }
+  
+    .MuiMenuItem-root {
+      white-space: normal; /* Allow text to wrap */
+      word-wrap: break-word; /* Ensure long words break to fit within the container */
+      overflow-wrap: break-word; /* Ensure long words break to fit within the container */
+    }
+  }
+  

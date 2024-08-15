@@ -1,0 +1,90 @@
+LebAdvisor 
+----------
+on main page make the data from the default of offers / the first one
+make maximum hours of period is 24
+make newly created booking displayable on the frontend
+make package and tour booking stock reduce from the confrimation
+change from activity to activity offer in the frontend
+do not serialize what doesn't need to be serialized send raw numbers and corrupted data instead
+stock and unit can be removed now from the main activity/tour/package
+
+multiple types of units , multiple price and a ratio of unit / stock.
+
+if youre not logged in and tried to book you should be redirected to login form
+
+supplier should be able to edit the offer -- later 
+booking page tours not displaying pictures 
+margin bottom
+on booking activity it takes you to the main page but when booking tour it takes you to the booking 
+page
+
+- make advanced iternary design with information about what to do in each place and icons for 
+common things
+- refactoring file by file and take notes
+
+-display is fine i think , add some data to the card
+- refresh page after booking so notifications show
+
+
+
+- for you is not working on init
+- when any notiifcation is clicked it redirects to the booking / dashboard page
+- make the user session available for 15 days
+- send notiifcations on confirm payment for supplier and customer
+- qr code to include the host name in Tours and Packages
+- remove confirm payment button(replaced by qr code)
+- do not display offers that their time has passed
+- display cost per stock in the booking form
+- booking card display quanity with unit and total price (instead of item price)
+- remove for you from the main page for guests
+- fix: items only showing for loggedin users (in the main page)
+- fix: for you items not showing (no request is sent) after fresh login from different account
+- enforce strong password validation during registration
+
+- ithinkthereisaproblem in the package booking that needs to be solved read bookings/views
+- connect to external services (sms and location)
+- make a cool iternary with all the stuff that we will do in this trip from the beginning 
+to the end. this should be some kind of guide for the user to choose if they'll like the 
+trip and to know what is included and what is not
+
+- what after we update email and password, make a sign that things worked
+- fix: need to refresh after login (this can wait)
+- add ability to change email user and password
+
+there 's no guest booking on the platfrom  -- easy profile create no need for guest booking
+
+make the booking save the number of stock you are booking and the price of the booking 
+especially if your booking offer has multiple offers
+
+fix models. before testing
+creating account and login 
+--------------------------
+you should be able to give preferences, location
+get locations and categories and make the user choose from them 
+by default all are selected
+
+make the categories and location in a dropdown section
+
+data of offers
+--------------
+
+what is an offer , it's the data that we provide to customers that they
+need to make a decision about booking something.
+if i want to book an activity , tour or something else what data do 
+i need.
+
+what is the activity 
+    climbing
+what does it include 
+    food
+how much does it cost
+    50$
+where it is 
+    lebanon beirut
+reviews
+    bien
+
+you don't have to refresh to see that button of notifications and profile icon add this to issues 
+as bug
+the main problem : 
+what is a model for booking that could never fail?

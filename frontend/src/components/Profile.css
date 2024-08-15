@@ -1,0 +1,116 @@
+.profile-container {
+  margin-top: 30px;
+  padding: 20px;
+  margin-bottom: 30px;
+}
+
+.profile-card {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  width: 100%;
+}
+
+.profile-card .MuiTypography-h6 {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.profile-card .MuiTypography-h6 .icon {
+  margin-right: 10px;
+}
+
+.profile-card .MuiTypography-root {
+  margin-bottom: 10px;
+}
+
+.profile-card .MuiTypography-root .icon-inline {
+  margin-right: 10px;
+}
+
+.profile-card .MuiFormControl-root {
+  margin-bottom: 10px;
+}
+
+.profile-card .MuiButton-containedPrimary {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.profile-card .MuiButton-containedPrimary:hover {
+  background-color: #0056b3;
+}
+
+.show-more-btn {
+  display: block;
+  background-color: #007bff;
+  border: none;
+  color: white;
+  cursor: pointer;
+  text-decoration: none;
+  padding: 10px;
+  border-radius: 4px;
+  text-align: center;
+  margin-top: 10px;
+  width: 100%;
+}
+
+.show-more-btn:hover {
+  background-color: #0056b3;
+}
+
+@media (max-width: 768px) {
+  .profile-container {
+    padding: 10px;
+  }
+
+  .profile-card {
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-container {
+    padding: 5px;
+  }
+
+  .profile-card {
+    padding: 10px;
+  }
+}
+
+.profile-container .MuiGrid-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.profile-container .MuiGrid-item {
+  display: flex;
+  flex: 1;
+}
+
+.profile-card .MuiButton-containedPrimary {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.profile-card .MuiButton-containedPrimary:hover {
+  background-color: #0056b3;
+}
+
+.profile-card .show-more-btn {
+  background-color: #007bff;
+  color: #fff;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.profile-card .show-more-btn:hover {
+  background-color: #0056b3;
+}

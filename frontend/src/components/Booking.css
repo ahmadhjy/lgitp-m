@@ -1,0 +1,131 @@
+body{
+  background-color: aliceblue !important;
+}
+
+/* Booking.css */
+.css-1oqqzyl-MuiContainer-root{
+  width: 100% !important;
+}
+
+.container {
+  margin-top: 30px !important;
+  width: 100% !important;
+}
+
+.filter-control{
+  margin-bottom: 20px !important;
+}
+
+.booking-card {
+  overflow: hidden;
+  /* transition: transform 0.2s ease-in-out; */
+  font-family: 'Roboto', sans-serif;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  transition: transform 0.3s, box-shadow 0.3s;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-radius: 15px;
+  background-color: white;
+  cursor: pointer;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.booking-card h2{
+  font-weight: 700;
+  color: #ff7a2d;
+  font-size: larger;
+}
+
+.booking-card:hover {
+  transform: scale(1.02);
+}
+
+.booking-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.booking-content {
+  padding: 15px;
+  flex: 1;
+  background-color: white;
+}
+
+.booking-info {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.booking-info .icon-inline {
+  margin-right: 10px;
+}
+
+.booking-status {
+  font-weight: bold;
+}
+
+.paid {
+  color: green;
+}
+
+.unpaid {
+  color: red;
+}
+
+.confirmed {
+  color: green;
+}
+
+.not-confirmed {
+  color: orange;
+}
+
+.qr-code {
+  width: 100px;
+  height: 100px;
+  margin-top: 10px;
+}
+
+.no-bookings {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.section-title .icon-inline {
+  margin-right: 10px;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 30px 0px !important;
+    margin-top: 0px;
+  }
+
+  .booking-card {
+    margin-bottom: 20px;
+  }
+
+  .section-title{
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 5px;
+  }
+
+  .booking-card {
+    padding: 10px;
+  }
+}

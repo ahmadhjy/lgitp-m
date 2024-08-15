@@ -1,0 +1,173 @@
+.main-page {
+  padding: 0px;
+  background-color: #f3f4f6;
+  font-family: 'Arial', sans-serif;
+}
+
+.banner {
+  width: 100%;
+  height: 400px;
+  background-image: url('../../public/banner.jpg');
+  background-color: rgba(0,0,0,0.5);
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 60px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.banner-content {
+  text-align: center;
+  color: white;
+}
+
+.banner-text {
+  font-size: 58px;
+  padding: 20px 40px;
+  border-radius: 10px;
+  font-family: 'Georgia', serif;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  font-weight: 700;
+}
+
+.banner-subtext {
+  font-size: 28px;
+  margin-top: 10px;
+  font-family: 'Arial', sans-serif;
+  padding: 10px 20px;
+  border-radius: 10px;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+  font-weight: 500;
+}
+
+.banner-buttons {
+  margin-top: 20px;
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.banner-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  color: white;
+  background-color: #1781a1;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.banner-button:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+.banner-button-icon {
+  margin-right: 10px;
+}
+
+.section {
+  padding: 0 60px;
+  padding-bottom: 40px;
+}
+
+.featured {
+  background-image: url('../../public/beirut3.jpg');
+  padding: 40px 60px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  box-shadow: inset 0 0 0 2000px rgba(255, 182, 73, 0.712);
+}
+
+.featured .section-title {
+  color: white;
+  font-weight: 700;
+}
+
+.section-title {
+  font-size: 36px;
+  margin-bottom: 20px;
+  color: #ff7a2d;
+  display: flex;
+  align-items: center !important;
+  justify-content: center !important;
+  font-weight: 700;
+  padding-bottom: 20px;
+}
+
+.cat-offers{
+  background-color: white;
+  padding-top: 30px;
+}
+
+.section-icon {
+  margin-right: 10px;
+}
+
+.section-title .see-all-link {
+  color: #007bff;
+  text-decoration: underline;
+  margin-left: auto;
+  font-size: 18px;
+}
+
+.section-title .see-all-link:hover {
+  text-decoration: underline;
+}
+
+.scrollable-row {
+  display: flex;
+  overflow-x: auto;
+  padding: 20px 0;
+  gap: 20px;
+  scroll-snap-type: x mandatory;
+}
+
+.scrollable-row > div {
+  scroll-snap-align: center;
+}
+
+@media (max-width: 768px) {
+
+.banner-button{
+  display: none;
+}
+
+  .section {
+    padding: 30 10px;
+  }
+
+  .banner-text {
+    font-size: 32px;
+  }
+
+  .banner-subtext {
+    font-size: 20px;
+  }
+
+  .banner-buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .banner-button {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+
+  .section-title .see-all-link {
+    font-size: 14px;
+  }
+
+  .section-title{
+    font-size: 22px;
+    padding-bottom: 0px;
+  }
+}
