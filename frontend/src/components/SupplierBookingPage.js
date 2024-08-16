@@ -22,6 +22,7 @@ const SupplierBookingPage = () => {
     const [activityBookings, setActivityBookings] = useState([]);
     const [packageBookings, setPackageBookings] = useState([]);
     const [tourBookings, setTourBookings] = useState([]);
+    const [dashboardData, setDashboardData] = useState(null);
     const [filter, setFilter] = useState('all');
 
     const fetchBookings = async () => {
@@ -29,10 +30,12 @@ const SupplierBookingPage = () => {
             const activitiesResponse = await api.get('/api/supplier/bookings/');
             const packagesResponse = await api.get('/api/supplier/packagesb/');
             const toursResponse = await api.get('/api/supplier/toursb/');
+            const dashboardResponse = await api.get('/api/supplier-dashboard');
             
             setActivityBookings(activitiesResponse.data);
             setPackageBookings(packagesResponse.data);
             setTourBookings(toursResponse.data);
+            setDashboardData(dashboardResponse.data);
         } catch (err) {
             setError(err);
         } finally {
@@ -75,7 +78,13 @@ const SupplierBookingPage = () => {
     const renderBookingList = (bookings, type) => (
         <Grid container spacing={2}>
             {bookings.length > 0 ? filterBookings(bookings).map(booking => {
-                const imageUrl = booking.period?.activity?.image || booking.tourday?.tour?.image || booking.package?.image;
+                // Safely access nested properties
+                const imageUrl = booking.period?.activity_offer?.activity?.image || booking.tourday?.tour_offer?.tour?.image || booking.package_offer?.package?.image;
+                const title = booking.period?.activity_offer?.activity?.title || booking.tourday?.tour_offer?.tour?.title || booking.package_offer?.package?.title || 'Booking';
+                const price = booking.period?.activity_offer?.price || booking.tourday?.tour_offer?.price || booking.package_offer?.price || 0;
+                const day = booking.period?.day || booking.tourday?.day || booking.start_date;
+                const startTime = booking.period?.time_from || booking.tourday?.time_from || booking.start_date;
+                const endTime = booking.period?.time_to || booking.tourday?.time_to || booking.end_date;
                 const customerUsername = booking.customer?.user?.username;
                 const customerEmail = booking.customer?.user?.email;
                 const customerPhone = booking.customer?.user?.phone;
@@ -87,23 +96,24 @@ const SupplierBookingPage = () => {
                                 <img 
                                     src={`${MainUrl}/${imageUrl}`} 
                                     className="booking-image"
+                                    alt="Booking"
                                 />
                             )}
                             <CardContent className="booking-content">
                                 <Typography variant="h5" component="h2" className="booking-info">
-                                    {booking.period ? booking.period.activity.title : booking.tourday ? booking.tourday.tour.title : booking.package.title}
+                                    {title}
                                 </Typography>
                                 <Typography variant="body2" className="booking-info">
-                                    <FaDollarSign className="icon-inline" /> Price: ${booking.period ? booking.period.activity.price : booking.tourday ? booking.tourday.tour.price : booking.package.price}
+                                    <FaDollarSign className="icon-inline" /> Price: ${price}
                                 </Typography>
                                 <Typography variant="body2" className="booking-info">
-                                    <FaCalendarAlt className="icon-inline" /> Day: {booking.period ? booking.period.day : booking.tourday ? booking.tourday.day : booking.start_date}
+                                    <FaCalendarAlt className="icon-inline" /> Day: {day}
                                 </Typography>
                                 <Typography variant="body2" className="booking-info">
-                                    <FaClock className="icon-inline" /> Starts at: {booking.period ? booking.period.time_from : booking.tourday ? booking.tourday.time_from : booking.start_date}
+                                    <FaClock className="icon-inline" /> Starts at: {startTime}
                                 </Typography>
                                 <Typography variant="body2" className="booking-info">
-                                    <FaClock className="icon-inline" /> Ends at: {booking.period ? booking.period.time_to : booking.tourday ? booking.tourday.time_to : booking.end_date}
+                                    <FaClock className="icon-inline" /> Ends at: {endTime}
                                 </Typography>
                                 {customerUsername && (
                                     <Typography variant="body2" className="booking-info">
@@ -143,8 +153,56 @@ const SupplierBookingPage = () => {
     return (
         <Container className="container">
             <Typography variant="h4" component="h1" gutterBottom className="section-title">
-                Supplier Bookings
+                Supplier Dashboard
             </Typography>
+
+            {/* Dashboard Summary Section */}
+            {dashboardData && (
+                <Grid container spacing={4}>
+                    <Grid item xs={12} md={6}>
+                        <Card className="summary-card">
+                            <CardContent>
+                                <Typography variant="h5" component="h2">
+                                    <FaDollarSign className="icon-inline" /> Total Sales: ${dashboardData.total_sales}
+                                </Typography>
+                                <Typography variant="h5" component="h2">
+                                    <FaCheck className="icon-inline" /> Confirmed Bookings: {dashboardData.confirmed_bookings}
+                                </Typography>
+                                <Typography variant="h5" component="h2">
+                                    <FaCheck className="icon-inline" /> Confirmed This Month: {dashboardData.confirmed_bookings_this_month}
+                                </Typography>
+                                <Typography variant="h5" component="h2">
+                                    <FaTimes className="icon-inline" /> Unconfirmed Bookings: {dashboardData.unconfirmed_bookings}
+                                </Typography>
+                                <Typography variant="h5" component="h2">
+                                    <FaTimes className="icon-inline" /> Unconfirmed This Month: {dashboardData.unconfirmed_bookings_this_month}
+                                </Typography>
+                            </CardContent>
+                        </Card>
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
+                        <Card className="summary-card">
+                            <CardContent>
+                                <Typography variant="h5" component="h2">
+                                    <FaUser className="icon-inline" /> Today's Customers:
+                                </Typography>
+                                {dashboardData.todays_customers.length > 0 ? (
+                                    dashboardData.todays_customers.map((customer, index) => (
+                                        <Typography key={index} variant="body1">
+                                            {customer[0]} at {new Date(customer[1]).toLocaleTimeString()}
+                                        </Typography>
+                                    ))
+                                ) : (
+                                    <Typography variant="body1">No customers today.</Typography>
+                                )}
+                            </CardContent>
+                        </Card>
+                    </Grid>
+                </Grid>
+            )}
+
+            {/* Bookings Section */}
             <FormControl variant="outlined" className="filter-control">
                 <InputLabel>Filter</InputLabel>
                 <Select
