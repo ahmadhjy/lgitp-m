@@ -2,7 +2,7 @@ from django.db import models
 from users.models import Supplier
 from categories.models import Category
 from location.models import Location
-
+from datetime import timedelta
 
 class Package(models.Model):
     featured = models.BooleanField(default=False)

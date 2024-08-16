@@ -14,7 +14,184 @@ from booking.serializers import (
     PackageBookingSerializer,
     TourBookingSerializer,
 )
-from datetime import timedelta, datetime
+from datetime import timedelta
+from django.utils import timezone
+from django.db.models import Sum
+
+from activities.serializers import ActivitySerializer
+from tours.serializers import TourSerializer
+from packages.serializers import PackageSerializer
+
+
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def supplier_dashboard(request):
+    user = request.user
+    try:
+        supplier = user.supplier
+    except Supplier.DoesNotExist:
+        return Response(
+            {"detail": "You are not authorized to view this information."}, status=403
+        )
+
+    # My offers
+    activities = supplier.activity_set.all()
+    tours = supplier.tour_set.all()
+    packages = supplier.package_set.all()
+
+    activity_serialized = ActivitySerializer(activities, many=True)
+    tour_serialized = TourSerializer(tours, many=True)
+    package_serialized = PackageSerializer(packages, many=True)
+
+    # Total sales
+    total_sales = (
+        (
+            ActivityBooking.objects.filter(
+                period__activity_offer__activity__supplier=supplier, confirmed=True
+            ).aggregate(total_sales=Sum("quantity"))["total_sales"]
+            or 0
+        )
+        + (
+            TourBooking.objects.filter(
+                tourday__tour_offer__tour__supplier=supplier, confirmed=True
+            ).aggregate(total_sales=Sum("quantity"))["total_sales"]
+            or 0
+        )
+        + (
+            PackageBooking.objects.filter(
+                package_offer__package__supplier=supplier, confirmed=True
+            ).aggregate(total_sales=Sum("quantity"))["total_sales"]
+            or 0
+        )
+    )
+
+    # Confirmed bookings combined
+    confirmed_bookings = (
+        (
+            ActivityBooking.objects.filter(
+                period__activity_offer__activity__supplier=supplier, confirmed=True
+            ).count()
+        )
+        + (
+            TourBooking.objects.filter(
+                tourday__tour_offer__tour__supplier=supplier, confirmed=True
+            ).count()
+        )
+        + (
+            PackageBooking.objects.filter(
+                package_offer__package__supplier=supplier, confirmed=True
+            ).count()
+        )
+    )
+
+    # Confirmed bookings this month
+    start_of_month = timezone.now().replace(day=1)
+    confirmed_bookings_this_month = (
+        (
+            ActivityBooking.objects.filter(
+                period__activity_offer__activity__supplier=supplier,
+                confirmed=True,
+                created_at__gte=start_of_month,
+            ).count()
+        )
+        + (
+            TourBooking.objects.filter(
+                tourday__tour_offer__tour__supplier=supplier,
+                confirmed=True,
+                created_at__gte=start_of_month,
+            ).count()
+        )
+        + (
+            PackageBooking.objects.filter(
+                package_offer__package__supplier=supplier,
+                confirmed=True,
+                created_at__gte=start_of_month,
+            ).count()
+        )
+    )
+
+    # Unconfirmed bookings
+    unconfirmed_bookings = (
+        (
+            ActivityBooking.objects.filter(
+                period__activity_offer__activity__supplier=supplier, confirmed=False
+            ).count()
+        )
+        + (
+            TourBooking.objects.filter(
+                tourday__tour_offer__tour__supplier=supplier, confirmed=False
+            ).count()
+        )
+        + (
+            PackageBooking.objects.filter(
+                package_offer__package__supplier=supplier, confirmed=False
+            ).count()
+        )
+    )
+
+    # Unconfirmed bookings this month
+    unconfirmed_bookings_this_month = (
+        (
+            ActivityBooking.objects.filter(
+                period__activity_offer__activity__supplier=supplier,
+                confirmed=False,
+                created_at__gte=start_of_month,
+            ).count()
+        )
+        + (
+            TourBooking.objects.filter(
+                tourday__tour_offer__tour__supplier=supplier,
+                confirmed=False,
+                created_at__gte=start_of_month,
+            ).count()
+        )
+        + (
+            PackageBooking.objects.filter(
+                package_offer__package__supplier=supplier,
+                confirmed=False,
+                created_at__gte=start_of_month,
+            ).count()
+        )
+    )
+
+    # Today's customers
+    next_24_hours = timezone.now() + timedelta(hours=24)
+    todays_customers = (
+        list(
+            ActivityBooking.objects.filter(
+                period__activity_offer__activity__supplier=supplier,
+                period__time_from__range=(timezone.now().time(), next_24_hours.time()),
+            ).values_list("customer__user__username", "created_at")
+        )
+        + list(
+            TourBooking.objects.filter(
+                tourday__tour_offer__tour__supplier=supplier,
+                tourday__day=timezone.now().date(),
+            ).values_list("customer__user__username", "created_at")
+        )
+        + list(
+            PackageBooking.objects.filter(
+                package_offer__package__supplier=supplier,
+                start_date=timezone.now().date(),
+            ).values_list("customer__user__username", "created_at")
+        )
+    )
+
+    data = {
+        "my_offers": {
+            "activities": activity_serialized.data,
+            "tours": tour_serialized.data,
+            "packages": package_serialized.data,
+        },
+        "total_sales": total_sales,
+        "confirmed_bookings": confirmed_bookings,
+        "confirmed_bookings_this_month": confirmed_bookings_this_month,
+        "unconfirmed_bookings": unconfirmed_bookings,
+        "unconfirmed_bookings_this_month": unconfirmed_bookings_this_month,
+        "todays_customers": todays_customers,
+    }
+
+    return Response(data)
 
 
 # Customer views for activity bookings

@@ -144,12 +144,62 @@ const PackageDetails = () => {
                 />
                 <hr />
                 <ImageCatalog imageLinks={imageLinks} />
+                <div className="booking-container">
+                    <h2>Book This Package Now!</h2>
+                    <TextField
+                        select
+                        label="Select Offer"
+                        value={selectedOffer?.id || ''}
+                        onChange={handleOfferChange}
+                        fullWidth
+                    >
+                        <MenuItem value="">Select Offer</MenuItem>
+                        {pkg.offers.map(offer => (
+                            <MenuItem key={offer.id} value={offer.id}>
+                                {offer.title} - ${offer.price}
+                            </MenuItem>
+                        ))}
+                    </TextField>
+                    {selectedOffer && (
+                        <PackageDatePicker
+                            availablePackageDays={availableDates.map(day => format(new Date(day.day), 'yyyy-MM-dd'))}
+                            onDateChange={handleDateChange}
+                        />
+                    )}
+                    {selectedPackageDay && selectedPackageDay.package_offer && (
+                        <>
+                            <TextField
+                                type="number"
+                                label="Quantity"
+                                value={quantity}
+                                onChange={(e) => setQuantity(Math.min(Math.max(parseInt(e.target.value, 10), 1), selectedPackageDay.stock))}
+                                InputProps={{ inputProps: { min: 1, max: selectedPackageDay.stock } }}
+                                fullWidth
+                                margin="normal"
+                            />
+                            <p><strong>Total Price:</strong> ${totalPrice.toFixed(2)}</p>
+                            <Button
+                                onClick={handleBooking}
+                                variant="contained"
+                                sx={{
+                                    backgroundColor: "#1781a1",
+                                    color: "#fff",
+                                    "&:hover": {
+                                        backgroundColor: "#ff7a2d",
+                                    },
+                                }}
+                            >
+                                BOOK NOW
+                            </Button>
+                        </>
+                    )}
+                </div>
                 <div className="details-content">
                     <p className="description">
                         {pkg.description}
                     </p>
                     <p>
-                        <FaDollarSign className="icon" /> <strong>Price:</strong> {pkg.price}
+                            <FaDollarSign className="icon" /> <strong>Starting Price:</strong> ${pkg.offers[0].price}
                     </p>
                     <div className="date-info">
                         <p>
@@ -239,55 +289,6 @@ const PackageDetails = () => {
                             ))}
                         </div>
                     </div>
-                </div>
-                <div className="booking-container">
-                    <TextField
-                        select
-                        label="Select Offer"
-                        value={selectedOffer?.id || ''}
-                        onChange={handleOfferChange}
-                        fullWidth
-                    >
-                        <MenuItem value="">Select Offer</MenuItem>
-                        {pkg.offers.map(offer => (
-                            <MenuItem key={offer.id} value={offer.id}>
-                                {offer.title} - ${offer.price}
-                            </MenuItem>
-                        ))}
-                    </TextField>
-                    {selectedOffer && (
-                        <PackageDatePicker
-                            availablePackageDays={availableDates.map(day => format(new Date(day.day), 'yyyy-MM-dd'))}
-                            onDateChange={handleDateChange}
-                        />
-                    )}
-                    {selectedPackageDay && selectedPackageDay.package_offer && (
-                        <>
-                            <TextField
-                                type="number"
-                                label="Quantity"
-                                value={quantity}
-                                onChange={(e) => setQuantity(Math.min(Math.max(parseInt(e.target.value, 10), 1), selectedPackageDay.stock))}
-                                InputProps={{ inputProps: { min: 1, max: selectedPackageDay.stock } }}
-                                fullWidth
-                                margin="normal"
-                            />
-                            <p><strong>Total Price:</strong> ${totalPrice.toFixed(2)}</p>
-                            <Button
-                                onClick={handleBooking}
-                                variant="contained"
-                                sx={{
-                                    backgroundColor: "#1781a1",
-                                    color: "#fff",
-                                    "&:hover": {
-                                        backgroundColor: "#ff7a2d",
-                                    },
-                                }}
-                            >
-                                BOOK NOW
-                            </Button>
-                        </>
-                    )}
                 </div>
             </div>
         </div>

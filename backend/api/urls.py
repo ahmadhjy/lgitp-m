@@ -7,6 +7,7 @@ from booking.views import (
     package_booking_create,
 )
 from dashboard.views import (
+    supplier_dashboard,
     supplier_activity_bookings,
     customer_activity_bookings,
     confirm_activity_booking,
@@ -42,10 +43,11 @@ from blog.views import PostViewSet, upload_image
 
 
 router = DefaultRouter()
-router.register(r'posts', PostViewSet)
+router.register(r"posts", PostViewSet)
 
 urlpatterns = [
     path("for-you/", for_you_items, name="for_you"),
+    path("supplier-dashboard/", supplier_dashboard, name="supplier_dashboard"),
     path("all-favorites/", all_favorites, name="all_favorites"),
     path(
         "favorite-activity/<int:activity_id>/",
@@ -149,6 +151,6 @@ urlpatterns = [
         confirm_tour_payment,
         name="confirm_tour_payment",
     ),
-    path('upload-image/', upload_image, name='upload_image'),
-    path('', include(router.urls)),  # This will handle /posts/ and /posts/<int:pk>/    
+    path("upload-image/", upload_image, name="upload_image"),
+    path("", include(router.urls)),  # This will handle /posts/ and /posts/<int:pk>/
 ]

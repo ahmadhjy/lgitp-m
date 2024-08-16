@@ -14,7 +14,7 @@ const Card = ({ item, onClick }) => (
         <p className="card-to"><FaClock className='card-icon'/> Available till {item.available_to}</p>
         {/* <p className="card-category"><FaTag className='card-icon'/> {item.categories.map(cat => cat.name).join(', ')}</p> */}
       </div>
-      <div className="card-price"><FaDollarSign /> {item.price} <span>per {item.unit}</span></div>
+      <div className="card-price"><FaDollarSign /> {item.offers[0].price} <span>per {item.unit}</span></div>
     </div>
   </div>
 );
