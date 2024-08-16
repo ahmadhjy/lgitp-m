@@ -153,4 +153,8 @@ urlpatterns = [
     ),
     path("upload-image/", upload_image, name="upload_image"),
     path("", include(router.urls)),  # This will handle /posts/ and /posts/<int:pk>/
+<<<<<<< HEAD
 ]
+=======
+]
+>>>>>>> origin/master
